@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+<head>
+	<meta charset="UTF-8">
+	<title>cafeteria</title>
+	<style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      height: 100%;
+      width: 100%;
+    }
+    body {
+      font-family: Helvetica, sans-serif;
+      font-size: 16px;
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    h2 {
+      padding: 100px 0 15px;
+    }
+    .header {
+      background-color: rgba(0, 0, 0, .2);
+      height: 75px;
+      position: fixed;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    .navbar {
+      height: 75px;
+	  margin-left:-100px;
+    }
+    .navbar ul {
+      margin: 15px 0 0 0;
+    }
+    .navbar li {
+      display: inline;
+      list-style: none;
+      margin: 0 30px 0 0;
+    }
+    .navbar a {
+      color: red;
+      font-size: 14px;
+      line-height: 50px;
+      text-decoration: none;
+      transition: color:black;
+	  margin-left:.5rem;
+	  font-size:20px;
+	  
+    }
+    .navbar a.active {
+      color: orange;
+      line-height: 50px;
+      text-decoration: none;
+    }
+    .page {
+      height: 100%;
+      width: 100%;
+    }
+    .page:nth-child(odd) { background-color: orange; }
+    .page:nth-child(even) { background-color: cyan; }
+	
+	
+
+	
+	
+	.menu-item__variation__title {
+    color: #000;
+    margin: 10px 0;
+    margin-top: 10px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+}
+
+	
+		
+
+	
+	#frm{
+    border: solid black 2px;
+    width:20%;
+    border-radius:0px;
+	height:200px auto;
+    background:white;
+    margin:150px auto;
+    padding:40px;
+	margin-top:4px;
+	margin-left:0rem;
+	margin-bottom:30rem;
+}
+	
+
+	
+	 #frm1{
+            padding: 30px;
+            border: solid yellow 2px;
+            margin:0px auto;
+            border-radius:5px;
+            background: orange;
+            width:595px;
+            height:560px;
+			margin-left:-95px;
+            color:yellow;
+			margin-top:90px;
+			font-size:22px;
+        }
+	
+	p{
+	margin-left:-25px;
+	margin-top:-20px;
+	}
+	hr{
+	margin-left:-30px;
+	margin-top:0px;
+	width:598px;
+	}
+	
+	.glyphicon glyphicon-plus-sign{
+	margin-left:400px;
+	}
+	.frm2{
+	border:solid black 2px;
+	width:200px auto;
+	height:400px;
+	margin-top:-560px;
+	margin-left:600px;
+	}
+	h2{
+	margin-left:80px;
+	margin-top:-90px;
+	}
+	.frm3{
+	border:solid black 2px;
+	width:200px auto;
+	height:400px;
+	margin-top:100px;
+	margin-left:600px;
+	}
+	
+	.addbutton{
+	margin-top:100px;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</style>
+</head>
+
+<body>
+	<script type="application/javascript">
+		window.requestAnimFrame = (function(){
+		return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          function(callback){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
+function scrollToY(scrollTargetY, speed, easing) {
+
+  var scrollY = window.scrollY || document.documentElement.scrollTop,
+      currentTime = 0;
+
+  scrollTargetY = scrollTargetY || 0;
+  speed = speed || 2000;
+  easing = easing || 'easeOutSine';
+
+  var time = Math.max(0.1, Math.min(Math.abs(scrollY - scrollTargetY) / speed, 0.8));
+
+  var easingEquations = {
+
+    easeOutSine: function (pos) {
+      return Math.sin(pos * (Math.PI / 2));
+    },
+    easeInOutSine: function (pos) {
+      return (-0.5 * (Math.cos(Math.PI * pos) - 1));
+    },
+    easeInOutQuint: function (pos) {
+      if ((pos /= 0.5) < 1) {
+        return 0.5 * Math.pow(pos, 5);
+      }
+      return 0.5 * (Math.pow((pos - 2), 5) + 2);
+    }
+  };
+
+  function tick() {
+
+    currentTime += 1 / 60;
+
+    var p = currentTime / time;
+    var t = easingEquations[easing](p);
+
+    if (p < 1) {
+      requestAnimFrame(tick);
+      window.scrollTo(0, scrollY + ((scrollTargetY - scrollY) * t));
+
+    } else {
+      window.scrollTo(0, scrollTargetY);
+    }
+  }
+
+  tick();
+}
+function menuControl(menu) {
+	var scrollPos = window.scrollY || document.documentElement.scrollTop,
+    links     = menu.querySelectorAll('a[href^="#"]');
+	for(var i = 0; i < links.length; i++) {
+		var currLink   = links[i],
+        refElement = document.querySelector(currLink.getAttribute('href'));
+		if(refElement.offsetTop <= scrollPos && (refElement.offsetTop + refElement.clientHeight) > scrollPos) {
+				currLink.classList.add('active');
+
+		} else {
+				currLink.classList.remove('active');
+		}
+	}
+}
+
+function animated(menu, speed, easing) {
+  var i, links = menu.querySelectorAll('a[href^="#"]');
+  function control(e) {
+    e.preventDefault();
+    var target = document.querySelector(this.hash);
+    scrollToY(target.offsetTop, speed, easing);
+  }
+  for(i = 0; i < links.length; i++) {
+    var link = links[i];
+    link.addEventListener('click', control);
+  }
+}
+function scrollSpy(menu, speed, easing) {
+  animated(menu, speed, easing);
+  document.addEventListener('scroll', function() {
+    menuControl(menu);
+  });
+}
+	
+function scrollToY(e,t,n){function o(){var t=(i+=1/60)/a,u=c[n](t);t<1?(requestAnimFrame(o),window.scrollTo(0,r+(e-r)*u)):window.scrollTo(0,e)}var r=window.scrollY||document.documentElement.scrollTop,i=0;e=e||0,t=t||2e3,n=n||"easeOutSine";var a=Math.max(.1,Math.min(Math.abs(r-e)/t,.8)),c={easeOutSine:function(e){return Math.sin(e*(Math.PI/2))},easeInOutSine:function(e){return-.5*(Math.cos(Math.PI*e)-1)},easeInOutQuint:function(e){return(e/=.5)<1?.5*Math.pow(e,5):.5*(Math.pow(e-2,5)+2)}};o()}function menuControl(e){for(var t=window.scrollY||document.documentElement.scrollTop,n=e.querySelectorAll('a[href^="#"]'),o=0;o<n.length;o++){var r=n[o],i=document.querySelector(r.getAttribute("href"));i.offsetTop<=t&&i.offsetTop+i.clientHeight>t?r.classList.add("active"):r.classList.remove("active")}}function animated(e,t,n){var o,r=e.querySelectorAll('a[href^="#"]');for(o=0;o<r.length;o++)r[o].addEventListener("click",function(e){e.preventDefault(),scrollToY(document.querySelector(this.hash).offsetTop,t,n)})}function scrollSpy(e,t,n){animated(e,t,n),document.addEventListener("scroll",function(){menuControl(e)})}window.requestAnimFrame=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||function(e){window.setTimeout(e,1e3/60)};
+</script>
+
+<script>
+var app = angular.module("myShoppingList", []); 
+app.controller("myCtrl", function($scope) {
+    $scope.products = [];
+    $scope.addItem = function () {
+        $scope.products.push($scope.addMe);
+    }    
+    $scope.removeItem = function (x) {
+        $scope.products.splice(x, 1);
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <ul>
+		  <li><a href="#Home"style="marign-left:10px"></i> Home</li>
+          <li><a href="#Veg" title="Portfolio">Veg</a></li>
+          <li><a href="#about" title="About">Nonveg</a></li>
+		   <li><a href="#snacks" title="snacks">Snacks</a></li>
+		  <li><a href="#Order" title="Order">Your Order</a></li>
+		  <li><a href="#Due" title="Due">Dues</a></li>
+		  <li><a href="#contact" title="Contact">Contact</a></li>
+		  <li><a href="#feedback" title="feedback">Feedback</a></li>
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="margin-left:1000px;margin-top:-70px">kangresv
+			<span class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li><a href="#">Logout</a></li>
+				<li><a href="#">About us</a></li>
+			</ul>
+		</div>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="Home" class="page">
+    <div class="container">
+    </div>
+  </section>
+
+  <section id="Veg" class="page">
+    <div class="container">
+		<div id="frm1">
+			<form action="Order"method="POST">
+				<p>Paneer roll<a href="Order"><span class="glyphicon glyphicon-plus-sign" style="margin-left:405px"></span></a>
+				<hr>
+				
+				<p>Paneer munchurian<a href="Order"><span class="glyphicon glyphicon-plus-sign" style="margin-left:310px;padding:10px"></span></a>
+				<hr>
+				
+				<p>Punjabi paneer<a href="Order"><span class="glyphicon glyphicon-plus-sign" style="margin-left:355px;padding:10px"></span></a>
+				<hr>
+				
+				<p>Hydrabadi paneer<a href="Order"><span class="glyphicon glyphicon-plus-sign" style="margin-left:328px;padding:10px"></span></a>
+				<hr>
+			</form>
+		</div> 
+		<div class ="frm2">
+			<h2>your order</h2>
+			<ol class ="btn">
+			</ol>
+		</div>
+
+  </section>
+  <section id="about" class="page">
+    <div class="container">
+		<div ng-app="myShoppingList" ng-controller="myCtrl">
+			<p class ="addbutton"><input ng-model="addMe">
+			<button ng-click="addItem()">Add</button></p>
+			<div class="frm3">
+				<ol class ="btn">
+					<li ng-repeat="x in products">{{x}}<span ng-click="removeItem($index)"></span></li>
+				</ol>
+			</div>
+		</div>
+    </div>
+  </section>
+
+  
+  <section id="Order" class="page">
+	<div class="container">
+		 <div id="frm8">
+			<form action=""method="POST"> 
+		</div>    
+	</div>
+	
+	<section id="Due" class="page">
+    <div class="container">
+    </div>
+  </section>
+  <script>
+    var menu = document.querySelector('.navbar');
+    scrollSpy(menu, 1);
+  </script>
+  
+  
+   <section id="contact" class="page">
+    <div class="container">
+    </div>
+  </section>
+  
+   <section id="feedback" class="page">
+    <div class="container">
+    </div>
+  </section>
+  
+  
+   <section id="snacks" class="page">
+    <div class="container">
+    </div>
+  </section>
+</body>
+</html>
